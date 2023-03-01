@@ -1,10 +1,9 @@
-# Rapport ETL 
-
+#  ETL  
 
 ## 1. Contexte
-*Ce projet est un ETL écrit en python*
+*Ce projet est un exemple d'ETL écrit en python*
 
-Il permet d'extraire des données d'une source, de traiter les données et enfin de persister en base ou les envoyer vers un flux en streaming
+Il permet d'extraire des données à partir d'une source puis effectuer un traitement dessus et enfin de les persister dans une base de données ou les envoyer vers un flux en streaming
 
 
 ### Prérequis
@@ -29,7 +28,7 @@ Il permet d'extraire des données d'une source, de traiter les données et enfin
 
 Dans ce projet, on met en place un pipeline de données qui se décompose en trois parties :
 1. **L'extraction** : on obtient des données par appel à une API Web  
-   
+
 **Jeux de données**  
 *prix-des-carburants-j-1*  
 **Thèmes** : Transports, Déplacements  
@@ -46,9 +45,9 @@ Pour le jeu de données prix des carburants, on va mettre à plat les données, 
 
 3. **Le chargement** : cette étape consiste à persister les données dans une base de données postgreSQL (mode batch) ou envoyer un message contenant les données normalisées dans une queue RabbitMQ (streaming)
 
-Afin de persister les données, j'ai choisi une base de données relationnelle posgtresSQL, car elle est adaptée à mon cas d'usage et possède des propriétés intéressantes (ACID).  
+Afin de persister les données, j'ai choisi une base de données relationnelle posgtreSQL, car elle est adaptée à mon cas d'usage et possède des propriétés intéressantes (ACID).  
 
-À chaque ajout de données (exécution du job) dans une table, on drop la table si elle déjà existante et on insert les nouvelles données.
+À chaque ajout de données (exécution du job) dans une table, on drop la table si elle est déjà existante et on insert les nouvelles données.
 
 À partir de cette étape, on peut récupérer les données normalisées sur la base de données posgtreSQL via une API (FastAPI) disponible sur
 ```
@@ -59,8 +58,8 @@ La documentation est disponible sur
 http://127.0.0.1:80/docs  
 ```   
 On peut aussi se connecter sur l'interface RabbitMQ pour visualiser les messages envoyés avec  
-login=guest  
-pwd=guest
+`login=guest`  
+`pwd=guest`  
 ```     
 http://localhost:15672/
 ```   
