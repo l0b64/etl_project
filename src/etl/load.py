@@ -5,7 +5,6 @@ import pika
 
 
 def push_message_to(amqp_url, message, queue_name):
-
     url_params = pika.URLParameters(amqp_url)
 
     connection = pika.BlockingConnection(url_params)
@@ -23,7 +22,6 @@ def push_message_to(amqp_url, message, queue_name):
 
 
 def load_to_db(df, table, pg_url):
-
     if pg_url:
         engine = create_engine(pg_url)
 

@@ -12,7 +12,6 @@ URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{HOST}:{PORT}/{DB}"
 
 
 def main():
-
     print("--- ETL job started ---")
     extracted_df = extract_data.extract_json_data_from_url(api_url)
 
