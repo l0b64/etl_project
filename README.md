@@ -1,5 +1,8 @@
 #  ETL  
 
+## Architecture
+![architecture](https://i.imgur.com/Kn2j3IC.jpg)
+
 ## 1. Contexte
 *Ce projet est un exemple d'ETL écrit en python*
 
