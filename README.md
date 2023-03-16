@@ -3,24 +3,24 @@
 ## Architecture
 ![architecture](https://i.imgur.com/Kn2j3IC.jpg)
 
-## 1. Contexte
-*Ce projet est un exemple d'ETL écrit en python*
+## 1. Context
+*This is an ETL (Extract, Transform, Load) project written in Python.*
 
-Il permet d'extraire des données à partir d'une source puis effectuer un traitement dessus et enfin de les persister dans une base de données ou les envoyer vers un flux en streaming
+It allows data extraction from a source, processing, and finally persisting it in a database or sending it to a streaming flow.
 
 
-### Prérequis
+### Prerequisites
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/)
 
 ## Installation
 
-1. Lancer la commande
+1. Run the command
    ```
    docker-compose up
    ```
 
-2. Lancer les tests
+2. Run the tests
 
    ```
    pytest .\tests\test_usecases_fuel_prices.py
@@ -29,38 +29,38 @@ Il permet d'extraire des données à partir d'une source puis effectuer un trait
 
 ##  2. Choix technique et architecture
 
-Dans ce projet, on met en place un pipeline de données qui se décompose en trois parties :
-1. **L'extraction** : on obtient des données par appel à une API Web  
+In this project, we implement a data pipeline that is divided into three parts:
+1. **Extraction** : We retrieve data by making a call to a Web API.
 
-**Jeux de données**  
+**Dataset**   
 *prix-des-carburants-j-1*  
-**Thèmes** : Transports, Déplacements  
-**Mots clés** : Carburant, Prix, Voiture, Mobilité, Station service  
-**Licence** : Licence Ouverte v1.0  
-**Langue** : Français  
-**Producteur** : Ministère de l'Economie, de l'Industrie et du Numérique
+**Themes** : Transport, Travel  
+**Keywords** : Fuel, Price, Car, Mobility, Service station 
+**License** : Open License v1.0  
+**Language** : French  
+**Producer** : Ministry of Economy, Industry, and Digital
 
-Le jeu de données est récupérée au format JSON
+The dataset is retrieved in JSON format.
 
-2. **La transformation** : on charge en mémoire les données pour les normaliser et les nettoyer.
+2. **Transformation** : We load the data into memory to normalize and clean it.
 
-Pour le jeu de données prix des carburants, on va mettre à plat les données, garder seulement les colonnes avec de l'information utile et changer le nom des colonnes.
+For the fuel price dataset, we flatten the data, keep only the columns with useful information, and change the column names.
 
-3. **Le chargement** : cette étape consiste à persister les données dans une base de données postgreSQL (mode batch) ou envoyer un message contenant les données normalisées dans une queue RabbitMQ (streaming)
+3. **Loading** : This step involves persisting the data in a PostgreSQL database (batch mode) or sending a message containing the normalized data to a RabbitMQ queue (streaming).
 
-Afin de persister les données, j'ai choisi une base de données relationnelle posgtreSQL, car elle est adaptée à mon cas d'usage et possède des propriétés intéressantes (ACID).  
+To persist the data, we chose a PostgreSQL relational database because it is suitable for our use case and has interesting properties (ACID).
 
-À chaque ajout de données (exécution du job) dans une table, on drop la table si elle est déjà existante et on insert les nouvelles données.
+For each data addition (job execution) in a table, we drop the table if it already exists and insert the new data.
 
-À partir de cette étape, on peut récupérer les données normalisées sur la base de données posgtreSQL via une API (FastAPI) disponible sur
+Starting from this step, we can retrieve the normalized data on the PostgreSQL database via a FastAPI API available at
 ```
 http://127.0.0.1:80/
 ```   
-La documentation est disponible sur 
+The documentation is available at
 ```   
 http://127.0.0.1:80/docs  
 ```   
-On peut aussi se connecter sur l'interface RabbitMQ pour visualiser les messages envoyés avec  
+We can also connect to the RabbitMQ interface to visualize the messages with   
 `login=guest`  
 `pwd=guest`  
 ```     
@@ -68,13 +68,13 @@ http://localhost:15672/
 ```   
 
 
-## 3. Améliorations possibles
+## 3. Possible improvements
 
-- Rajouter un script pour créer un schéma et une base de données au lancement du conteneur postgreSQL
-- Orchestrer avec un cron le lancement du job
-- Faire plus de tests et ajouter des tests d'intégrations
+- Add a script to create a schema and a database when launching the PostgreSQL container
+- Orchestrate job execution with a cron
+- Add more tests and integration tests
 
-## 4. Références
+## 4. References
 
 * https://innerjoin.bit.io/making-a-simple-data-pipeline-part-1-the-etl-pattern-7ea52c0f3579
 
