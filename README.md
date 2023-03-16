@@ -6,7 +6,7 @@
 ## 1. Context
 *This is an ETL (Extract, Transform, Load) project written in Python.*
 
-It allows data extraction from a source, processing, and finally persisting it in a database or sending it to a streaming flow.
+It allows data to be extracted from a source, processed, and finally persisted in a database or sent to a streaming flow.
 
 
 ### Prerequisites
