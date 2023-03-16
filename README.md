@@ -27,7 +27,7 @@ It allows data to be extracted from a source, processed, and finally persisted i
    ```  
 
 
-##  2. Choix technique et architecture
+##  2. Technical choices and architecture
 
 In this project, we implement a data pipeline that is divided into three parts:
 1. **Extraction** : We retrieve data by making a call to a Web API.
