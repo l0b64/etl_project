@@ -35,7 +35,7 @@ In this project, we implement a data pipeline that is divided into three parts:
 **Dataset**   
 *prix-des-carburants-j-1*  
 **Themes** : Transport, Travel  
-**Keywords** : Fuel, Price, Car, Mobility, Service station 
+**Keywords** : Fuel, Price, Car, Mobility, Service station   
 **License** : Open License v1.0  
 **Language** : French  
 **Producer** : Ministry of Economy, Industry, and Digital
