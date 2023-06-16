@@ -8,6 +8,9 @@
 
 It allows data to be extracted from a source, processed, and finally persisted in a database or sent to a streaming flow.
 
+You can create a dashboard to monitor the daily progression of gasoline prices
+![dataviz](https://i.imgur.com/Yvk4T0Y.png)
+
 
 ### Prerequisites
 - [Docker](https://docs.docker.com/get-docker/)
