@@ -36,8 +36,8 @@ if fuel_filter == "E10":
     e10_df = e10_df.groupby("brand", as_index=False)["price_e10"].mean()
     st.bar_chart(e10_df[["price_e10", "brand"]], y="price_e10", x="brand")
 elif fuel_filter == "SP98":
-    e10_df = fuel_prices
+    sp98_df = fuel_prices
     st.title("Average price per brand of SP98 gasoline")
-    e10_df = e10_df.dropna(subset=["price_sp98", "brand"])
-    e10_df = e10_df.groupby("brand", as_index=False)["price_sp98"].mean()
-    st.bar_chart(e10_df[["price_sp98", "brand"]], y="price_sp98", x="brand")
+    sp98_df = sp98_df.dropna(subset=["price_sp98", "brand"])
+    sp98_df = sp98_df.groupby("brand", as_index=False)["price_sp98"].mean()
+    st.bar_chart(sp98_df[["price_sp98", "brand"]], y="price_sp98", x="brand")
