@@ -1,32 +1,44 @@
-from dash import Dash, html, dcc
-import plotly.express as px
+import streamlit as st
+from requests_html import HTMLSession
 import pandas as pd
 
-app = Dash(__name__)
+sess = HTMLSession()
+API_URL = f"http://127.0.0.1:80/"
 
-# assume you have a "long-form" data frame
-# see https://plotly.com/python/px-arguments/ for more options
-df = pd.DataFrame(
-    {
-        "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
-        "Amount": [4, 1, 2, 2, 4, 5],
-        "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"],
-    }
+
+def get_data():
+    fuel_prices_json = sess.get(API_URL).json()
+    for records in fuel_prices_json:
+        if records["brand"] is None or records["brand"] == "None":
+            fuel_prices_json.remove(records)
+    return pd.json_normalize(fuel_prices_json)
+
+
+fuel_prices = get_data()
+
+st.set_page_config(
+    page_title="Fuel Prices Dashboard",
+    page_icon="✅",
+    layout="wide",
 )
 
-fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
-
-app.layout = html.Div(
-    children=[
-        html.H1(children="Hello Dash"),
-        html.Div(
-            children="""
-        Dash: A web application framework for your data.
-    """
-        ),
-        dcc.Graph(id="example-graph", figure=fig),
-    ]
+# dashboard title
+st.title("Live Dashboard")
+st.write(
+    "You can see the data from the previous day (D-1) of gasoline in France on this dashboard"
 )
+# top-level filters
+fuel_filter = st.selectbox("Select the type of fuel", ["E10", "SP98"])
 
-if __name__ == "__main__":
-    app.run_server(debug=True)
+if fuel_filter == "E10":
+    e10_df = fuel_prices
+    st.title("Average price per brand of E10 gasoline")
+    e10_df = e10_df.dropna(subset=["price_e10", "brand"])
+    e10_df = e10_df.groupby("brand", as_index=False)["price_e10"].mean()
+    st.bar_chart(e10_df[["price_e10", "brand"]], y="price_e10", x="brand")
+elif fuel_filter == "SP98":
+    e10_df = fuel_prices
+    st.title("Average price per brand of SP98 gasoline")
+    e10_df = e10_df.dropna(subset=["price_sp98", "brand"])
+    e10_df = e10_df.groupby("brand", as_index=False)["price_sp98"].mean()
+    st.bar_chart(e10_df[["price_sp98", "brand"]], y="price_sp98", x="brand")
